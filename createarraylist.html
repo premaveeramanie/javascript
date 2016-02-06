@@ -9,6 +9,8 @@
 <p id='demo1'></p>
 <p id='demo2'></p>
 <p id='demo3'></p>
+<p id='demo4'></p>
+<p id='demo5'></p>
 <script type="text/javascript">
 	function Arraylist(arr){
 		this.arr=arr;
@@ -35,6 +37,15 @@ debugger;
        this.index=this.Arraylist.index(arrValue);
         return this.index===-1 ? "Value not found" : this.index;
     }
+    Arraylist.prototype.deleteitem= function(itemName){
+		this.index = this.arr.indexOf(itemName);
+		this.arr.splice(this.index,1);
+		return this.arr;
+	}
+	Arraylist.prototype.getitem= function(itemName){
+		this.index = this.arr.indexOf(itemName);
+		return this.index === -1 ? "Value not found" : this.arr[this.index];
+	}
 	// Arraylist.prototype.splice=function(param1,param2){
  //       this.arr.splice(param1,param2);
  //       return this.arr;
@@ -68,6 +79,8 @@ debugger;
 	document.getElementById('demo1').innerHTML=listed.delete();
 	document.getElementById('demo2').innerHTML=listed.sort();
 	document.getElementById('demo3').innerHTML=listed.reverse();
+	document.getElementById('demo4').innerHTML=listed.deleteitem('prema');
+	document.getElementById('demo5').innerHTML=listed.getitem('ruksana');
 	// document.getElementById('demo4').innerHTML=listed.search('shakthi');
 </script>
 </body>
