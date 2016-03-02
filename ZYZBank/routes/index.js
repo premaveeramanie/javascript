@@ -25,6 +25,21 @@ router.post('/',function(req, res) {
             }
             else if (result) {
               console.log("Success Signin \r\n CustomerName: " + result);
+              db.collection('user', function (error, collection) {
+                var accountnumber=Math.floor(Math.random() * 1000);
+                collection.updateOne({'userName': username}, {$set: {'accountnumber': accountnumber}}, function (error, result) {
+                  if (error) {
+                    console.log("Unable to Update" + error);
+                  }
+                  else if (result) {
+                    console.log('sucess');
+                  }
+                  else {
+                    console.log('failure');
+                  }
+                });
+              });
+
             }
             else {
               console.log("Failure");
@@ -107,8 +122,8 @@ router.post('/withdraw/:username',function(req,res){
               console.log("Unable to Update" + error);
             }
             else if (result) {
-              withdraw=parseInt(result.deposit) -parseInt(req.body['withdraw']);
-              //withdraw=result.withdraw;
+             result.withdraw=parseInt(result.deposit) - parseInt(req.body['withdraw']);
+              withdraw=result.withdraw;
               console.log("result.withdraw" +withdraw);
               console.log('sucess');
             }
@@ -133,6 +148,20 @@ router.post('/withdraw/:username',function(req,res){
   }
   res.render("mainbank",{'username':username});
 });
-
+//var accountnumber=Math.floor(Math.random() * 1000);
+//db.collection('user', function (error, collection) {
+//  var accountnumber=Math.floor(Math.random() * 1000);
+//  collection.updateOne({'userName': username}, {$set: {'accountnumber': accountnumber}}, function (error, result) {
+//    if (error) {
+//      console.log("Unable to Update" + error);
+//    }
+//    else if (result) {
+//      console.log('sucess');
+//    }
+//    else {
+//      console.log('failure');
+//    }
+//  });
+//});
 module.exports = router;
 
